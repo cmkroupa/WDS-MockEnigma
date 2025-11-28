@@ -1,32 +1,40 @@
-#include "plugboard.hpp"
-#include <cctype>
+#include "Plugboard.hpp"
+#include <algorithm>
 
-int char_to_index(char c) { return c - 'A'; }
+Plugboard::Plugboard()
+    : alpha("ABCDEFGHIJKLMNOPQRSTUVWXYZ") {}
 
-char index_to_char(int i) { return 'A' + i; }
+void Plugboard::addSwap(char a, char b) {
+    // convert to uppercase
+    a = toupper(a);
+    b = toupper(b);
 
-// --- Constructor ---
-Plugboard::Plugboard() {
-  for (int i = 0; i < 26; ++i) {
-    mapping[i] = index_to_char(i);
-  }
+    // find positions
+    int indexA = alpha.find(a);
+    int indexB = alpha.find(b);
+    if (indexA != std::string::npos && indexB != std::string::npos) {
+      if (indexA != indexB) {
+        std::swap(alpha[indexA], alpha[indexB]);
+      }
+    }
 }
 
-void Plugboard::add_swap(char c1, char c2) {
-  c1 = toupper(c1);
-  c2 = toupper(c2);
-
-  int index1 = char_to_index(c1);
-  int index2 = char_to_index(c2);
-
-  mapping[index1] = c2;
-  mapping[index2] = c1;
+void Plugboard::Reflector() {
+    addSwap('A', 'Y');
+    addSwap('B', 'R');
+    addSwap('C', 'U');
+    addSwap('D', 'H');
+    addSwap('E', 'Q');
+    addSwap('F', 'S');
+    alpha.addSwap('G', 'L');
+    alpha.addSwap('I', 'P');
+    alpha.addSwap('J', 'X');
+    alpha.addSwap('K', 'N');
+    alpha.addSwap('M', 'O');
+    alpha.addSwap('T', 'Z');
+    alpha.addSwap('V', 'W');
 }
 
-char Plugboard::encrypt(char c) const {
-  c = toupper(c);
-
-  int index = char_to_index(c);
-
-  return mapping[index];
+std::string Plugboard::getAlphaMapping() const {
+    return alpha;
 }
