@@ -1,31 +1,25 @@
-#include "Rotor.hpp"
-#include <cstdlib>
-#include <ctime>
+#include "rotor.hpp"
 #include <algorithm>
-Rotor::Rotor(const std::string& jumbledAlpha, int offset)
-    : jumbledAlpha(jumbledAlpha), offset(offset), alpha("ABCDEFGHIJKLMNOPQRSTUVWXYZ") {}
+#include <random>
 
-void Rotor::makeJumbledAlpha() {
-    jumbledAlpha = alpha;
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::shuffle(jumbledAlpha.begin(), jumbledAlpha.end(), gen);
-}
+using namespace std;
+Rotor::Rotor(int offset)
+    : offset(offset), alpha("JAIQLMXRPHNDKEGYSFTOBZCVUW") {}
+
+void Rotor::makeJumbledAlpha() { jumbledAlpha = alpha; }
 
 void Rotor::jumbledAlphaOffset() {
 
-    int n = jumbledAlpha.size();
-    int shift = offset % n; // ensure valid range
-    std::rotate(jumbledAlpha.rbegin(), jumbledAlpha.rbegin() + shift, jumbledAlpha.rend());
+  int n = jumbledAlpha.size();
+  int shift = offset % n; // ensure valid range
+  std::rotate(jumbledAlpha.rbegin(), jumbledAlpha.rbegin() + shift,
+              jumbledAlpha.rend());
 }
 
-string Rotor::getJumbledAlpha() const {
-    return jumbledAlpha;
-}
+string Rotor::getJumbledAlpha() const { return jumbledAlpha; }
 
+void Rotor::setJumbledAlpha(const string &s) { jumbledAlpha = s; }
 void Rotor::step() {
-    std::rotate(jumbledAlpha.rbegin(),
-                jumbledAlpha.rbegin() + 1,
-                jumbledAlpha.rend());
+  std::rotate(jumbledAlpha.rbegin(), jumbledAlpha.rbegin() + 1,
+              jumbledAlpha.rend());
 }
-

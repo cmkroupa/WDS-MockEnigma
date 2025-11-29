@@ -11,13 +11,15 @@ private:
 public:
     Plugboard();
 
+    // Constructor that accepts a custom alphabet (e.g., from rotor output)
+    Plugboard(const std::string& jumbledAlpha);
     // Add a swap, e.g. "AF" or pair (char a, char b)
     void addSwap(char a, char b);
-
+    void setJumbledAlpha(const std::string& jumbledAlpha);
     // Returns the swapped alphabet
     std::string getAlphaMapping() const;
 
-    void Reflector();    // for reflector
+    void setUpReflector();    // for reflector
 
 };
 

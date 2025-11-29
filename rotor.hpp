@@ -2,7 +2,7 @@
 #define ROTOR_HPP
 
 #include <string>
-
+using namespace std;
 class Rotor {
 private:
     int offset;
@@ -11,10 +11,14 @@ private:
 
 public:
     // Constructor declaration (no body!)
-    Rotor(const std::string& jumbledAlpha, int offset);
-
+    Rotor(int offset);
+    void jumbledAlphaOffset();
     // Function declaration
     void makeJumbledAlpha();
+    string getJumbledAlpha() const;
+    void step();
+    void setJumbledAlpha(const string& s);
+
 };
 
 #endif
